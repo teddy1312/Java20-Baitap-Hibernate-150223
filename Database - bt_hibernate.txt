@@ -1,0 +1,33 @@
+CREATE DATABASE bt_hibernate;
+
+USE bt_hibernate;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    fullname VARCHAR(50) NOT NULL,
+    phone VARCHAR(20),
+    role_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO users(email,password,fullname,phone,role_id)
+		  VALUES ("ted1@gmail.com","1111","Nguyễn Ted","0763123456",1);
+INSERT INTO users(email,password,fullname,phone,role_id)
+		  VALUES ("flynn2@gmail.com","2222","Trần Flynn","0935987654",2);
+INSERT INTO users(email,password,fullname,phone,role_id)
+		  VALUES ("lisa3@gmail.com","3333","Trương Lisa","0898333666",3);
+
+CREATE TABLE IF NOT EXISTS roles (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(100),
+    PRIMARY KEY (id)
+);
+
+INSERT INTO roles( name, description ) VALUES ("ROLE_ADMIN", "Quản lý hệ thống");
+INSERT INTO roles( name, description ) VALUES ("ROLE_LEADER", "Quản lý");
+INSERT INTO roles( name, description ) VALUES ("ROLE_STAFF", "Nhân viên");
+
+ALTER TABLE users ADD FOREIGN KEY (role_id) REFERENCES roles (id)  ON DELETE CASCADE;
